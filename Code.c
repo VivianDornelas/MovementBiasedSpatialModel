@@ -1,9 +1,9 @@
-/* 		29/07/22                                                                 		*/
-/*		Spatial population distribution ( Birth/death + movement biased + diffusion)  	*/
-/*		Equation:                                                                       */
-/*      d_t u = r(x)*u (1- u/K) - d_x [v(x)*u]  + Diff d_xx u 		                    */
-/*		Advection solved by chain rule                                           		*/
-/*                          By Vivian Dornelas ;) 	    								*/
+/* 	29/07/22                                                                 		*/
+/*	Spatial population distribution ( Birth/death + movement biased + diffusion)  	*/
+/*	Equation:                                                                       */
+/*      d_t u = r(x)*u (1- u/K) - d_x [v(x)*u]  + Diff d_xx u 		                */
+/*	Advection solved by chain rule                                        			*/
+/*                          By Vivian Dornelas ;)									*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -56,18 +56,18 @@ int main(int argc, char *argv[]){
 		printf("Erro no parametro A\n");exit(1);}
 	if(sscanf(argv[11],"%lf",&gm) != 1){
 		printf("Erro no parametro A\n");exit(1);}
-
+	
 	//  **************** Initializing variables ****************
-    char dest1[256];
-    iseed=seed();
-    dx=1.0/pow(10,dxs);
+	char dest1[256];
+	iseed=seed();
+	dx=1.0/pow(10,dxs);
 	L=20;
-    x=L/dx;
-    dx2=dx*dx;
-    x0=10;
-    disc=pow(10,dts);
+	x=L/dx;
+	dx2=dx*dx;
+	x0=10;
+	disc=pow(10,dts);
 	dt=1.0/disc;
-    u0=0.0;
+	u0=0.0;
 	if ((2.0*Diff*dt/(dx2)) >= 1.0)
 		printf ("Errou feio, errou rude!\n\n");
 	else {
@@ -140,23 +140,23 @@ void evolution(){
 }
 
 void measuring(){
-    umax = 0.0;
-    mu = 0.0;
-    mx = 0.0;
-    sigma2x = 0.0;
-    for (i=0;i<=x;i++){
-        if (ucurrent[i]>umax){
-            umax = ucurrent[i];
-            xumax= i*dx-x0;
-        }
-        mu += ucurrent[i];
-        mx += (i*dx-x0) * ucurrent[i];
-    }
-    mx/=mu;
-    for (i=0;i<=x;i++){
-        sigma2x += ( pow((i*dx-x0 - mx), 2.0)*ucurrent[i] );
-    }
-    sigma2x /= mu;
+	umax = 0.0;
+	mu = 0.0;
+	mx = 0.0;
+	sigma2x = 0.0;
+	for (i=0;i<=x;i++){
+		if (ucurrent[i]>umax){
+			umax = ucurrent[i];
+			xumax= i*dx-x0;
+        	}
+		mu += ucurrent[i];
+		mx += (i*dx-x0) * ucurrent[i];
+   	 }
+	mx/=mu;
+	for (i=0;i<=x;i++){
+		sigma2x += ( pow((i*dx-x0 - mx), 2.0)*ucurrent[i] );
+	}
+	sigma2x /= mu;
 }
 
 
@@ -165,13 +165,13 @@ int alocar(){
 		printf("Sem memoria\n"); exit(1);}
 	if(((ucurrent = (double*)calloc(x+1,sizeof(double))) == NULL)){
 		printf("Sem memoria\n"); exit(1);}
-    return 0;
+	return 0;
 }
 
 int libera(){
 	free(ubefore);
 	free(ucurrent);
-    return 0;
+	return 0;
 }
 
 // Initial seed from the system time and forced to be odd 
