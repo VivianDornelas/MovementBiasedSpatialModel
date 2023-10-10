@@ -83,8 +83,7 @@ int main(int argc, char *argv[]){
 			ucurrent[0]=0;		
 			ucurrent[x]=0;
 			for (i=1;i<x;i++){
-				rand1=int_ranf(0,100);
-				rand1/=pow(10,6);     
+				rand1=ranf/pow(10,4);    
 				ubefore[i]=u0+rand1;
 			}
 
